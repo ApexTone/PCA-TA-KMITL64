@@ -1,13 +1,4 @@
-class Point:
-    pass
-
-
-# m0-m12 pseudocode in lab file
-
-def m0():
-    pass
-
-
+# m1-m12 pseudocode in lab file
 def m1():
     pass
 
