@@ -33,7 +33,7 @@ def m3(n):  # O(n^2)
     return my_sum
 
 
-def m4(n):  # O(n^2)
+def m4(n):  # O(n^2)?
     round1s = 0
     my_sum = 0
     while round1s < n:
@@ -58,7 +58,7 @@ def m5(n):  # O(n)
     return my_sum
 
 
-def m6(n):  # O(n^2)?
+def m6(n):  # O(n^3)?
     round1s = 0
     my_sum = 0
     while round1s < n:
@@ -94,7 +94,7 @@ def m8(n):  # O(n^2)?
     return my_sum
 
 
-def m9(n):  # O(n)?
+def m9(n):  # O(n^4)?
     round1s = 0
     my_sum = 0
     while round1s < n:
