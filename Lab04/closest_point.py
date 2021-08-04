@@ -17,11 +17,25 @@ class Point:
 
 
 def find_closest(points):
-    pass
+    result = {}
+
+    if len(points) < 2:  # error case
+        result['error'] = "Points list must contain more than 1 point"
+        return result
+
+    for index, point1 in enumerate(points):
+        for point2 in points[index+1:]:
+            dist = point1.distance(point2)
+            if dist < result.get('min_dist', float('inf')):  # if no 'min_dist', use value of float('inf) instead
+                result['min_dist'] = dist
+                result['p1'] = point1
+                result['p2'] = point2
+    return result
 
 
 def main():
-    pass
+    points = [Point(93, 7), Point(0, 0), Point(1, 1)]
+    print(find_closest(points))
 
 
 if __name__ == '__main__':
