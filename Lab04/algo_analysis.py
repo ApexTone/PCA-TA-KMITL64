@@ -2,6 +2,19 @@ import matplotlib.pyplot as plt
 import time
 
 
+# use this decorator to time the execution time
+# https://medium.com/pythonhive/python-decorator-to-measure-the-execution-time-of-methods-fa04cb6bb36d
+def timer(method):
+    def timed(*args, **kwargs):
+        start_time = time.time()
+        result = method(*args, **kwargs)
+        end_time = time.time()
+        print(method.__name__, (end_time-start_time) * 1000)
+        return result
+    return timed
+
+
+@timer
 def m1(n):  # O(n)
     # don't use sum as variable name (same as sum() function)
     rounds = 0
@@ -12,6 +25,7 @@ def m1(n):  # O(n)
     return my_sum
 
 
+@timer
 def m2(n):  # O(n)
     rounds = 0
     my_sum = 0
@@ -21,6 +35,7 @@ def m2(n):  # O(n)
     return my_sum
 
 
+@timer
 def m3(n):  # O(n^2)
     round1s = 0
     my_sum = 0
@@ -33,6 +48,7 @@ def m3(n):  # O(n^2)
     return my_sum
 
 
+@timer
 def m4(n):  # O(n^2)?
     round1s = 0
     my_sum = 0
@@ -45,6 +61,7 @@ def m4(n):  # O(n^2)?
     return my_sum
 
 
+@timer
 def m5(n):  # O(n)
     round1s = 0
     my_sum = 0
@@ -58,6 +75,7 @@ def m5(n):  # O(n)
     return my_sum
 
 
+@timer
 def m6(n):  # O(n^3)?
     round1s = 0
     my_sum = 0
@@ -70,6 +88,7 @@ def m6(n):  # O(n^3)?
     return my_sum
 
 
+@timer
 def m7(n):  # O(n^2)?
     round1s = 0
     my_sum = 0
@@ -82,6 +101,7 @@ def m7(n):  # O(n^2)?
     return my_sum
 
 
+@timer
 def m8(n):  # O(n^2)?
     round1s = 0
     my_sum = 0
@@ -94,6 +114,7 @@ def m8(n):  # O(n^2)?
     return my_sum
 
 
+@timer
 def m9(n):  # O(n^4)?
     round1s = 0
     my_sum = 0
@@ -109,6 +130,7 @@ def m9(n):  # O(n^4)?
     return my_sum
 
 
+@timer
 def m10(n):  # O(log n)
     rounds = 1
     my_sum = 0
@@ -118,6 +140,7 @@ def m10(n):  # O(log n)
     return my_sum
 
 
+@timer
 def m11(n):  # O(log n)
     i = n
     my_sum = 0
@@ -127,6 +150,7 @@ def m11(n):  # O(log n)
     return my_sum
 
 
+@timer
 def m12(n):  # O(log10 n)?
     rounds = 1
     my_sum = 0
@@ -137,7 +161,7 @@ def m12(n):  # O(log10 n)?
 
 
 def main():
-    n = 100
+    n = 40
     m1(n)
     m2(n)
     m3(n)
