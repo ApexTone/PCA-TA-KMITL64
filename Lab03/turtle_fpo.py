@@ -38,18 +38,12 @@ class TurtleFPO:
         self.t.pendown()
 
 
-def test_fpo():
-    fpot = TurtleFPO(500)
-    while fpot.energy > 0:
-        fpot.leap_forward(random.randint(10, 50))
-        print('leap')
-
-
 def race():
+    # init turtle
     red = turtle.Turtle()
     blue = turtle.Turtle()
-    green = TurtleFPO(700)
-    purple = TurtleFPO(700)
+    green = TurtleFPO(random.randint(500, 800))
+    purple = TurtleFPO(random.randint(450, 700))
     start = -400
 
     red.color('red')
@@ -76,12 +70,25 @@ def race():
     purple.t.goto(start, -25)
     purple.t.down()
 
+    # finish line
+    _win_x = 200
+    finish = turtle.Turtle()
+    finish.up()
+    finish.goto(_win_x, -75)
+    finish.down()
+    finish.left(90)
+    finish.forward(170)
+    finish.hideturtle()
+
     # farthest = win
-    for _ in range(50):
+    while True:
         red.forward(random.randint(5, 20))
         blue.forward(random.randint(5, 20))
-        green.t.forward(random.randint(5, 20))
-        purple.t.forward(random.randint(5, 20))
+        green.forward(random.randint(5, 20))
+        purple.forward(random.randint(5, 20))
+        if red.pos()[0] >= _win_x or blue.pos()[0] >= _win_x or \
+                green.t.pos()[0] >= _win_x or purple.t.pos()[0] >= _win_x:
+            break
 
     turtle.done()
 
