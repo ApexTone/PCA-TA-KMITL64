@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import time
 
 
@@ -9,14 +8,14 @@ def timer(method):
         start_time = time.time()
         result = method(*args, **kwargs)
         end_time = time.time()
-        print(method.__name__, (end_time-start_time) * 1000)
+        print(method.__name__, (end_time-start_time) * 1000, "ms")
         return result
     return timed
 
 
 @timer
 def m1(n):  # O(n)
-    # don't use sum as variable name (same as sum() function)
+    # don't use sum as a variable name (same as sum() function)
     rounds = 0
     my_sum = 0
     while rounds < n:
@@ -89,7 +88,7 @@ def m6(n):  # O(n^3)?
 
 
 @timer
-def m7(n):  # O(n^2)?
+def m7(n):  # O(n^2)
     round1s = 0
     my_sum = 0
     while round1s < n:
@@ -102,7 +101,7 @@ def m7(n):  # O(n^2)?
 
 
 @timer
-def m8(n):  # O(n^2)?
+def m8(n):  # O(n^2)
     round1s = 0
     my_sum = 0
     while round1s < n:
@@ -115,7 +114,7 @@ def m8(n):  # O(n^2)?
 
 
 @timer
-def m9(n):  # O(n^4)?
+def m9(n):  # O(n^4)
     round1s = 0
     my_sum = 0
     while round1s < n:
@@ -161,19 +160,21 @@ def m12(n):  # O(log10 n)?
 
 
 def main():
-    n = 40
-    m1(n)
-    m2(n)
-    m3(n)
-    m4(n)
-    m5(n)
-    m6(n)
-    m7(n)
-    m8(n)
-    m9(n)
-    m10(n)
-    m11(n)
-    m12(n)
+    lst = [10, 50, 100, 500, 1000, 5000, 10000, 20000]
+    for n in lst:
+        print(f"n = {n}".center(30, "-"))
+        m1(n)
+        m2(n)
+        m3(n)
+        m4(n)
+        m5(n)
+        m6(n)
+        m7(n)
+        m8(n)
+        m9(n)
+        m10(n)
+        m11(n)
+        m12(n)
 
 
 if __name__ == '__main__':
