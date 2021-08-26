@@ -19,3 +19,7 @@ def main():
     num = 6
     print(fib_rec(num))
     print(fib_iter(num))
+
+
+if __name__ == '__main__':
+    main()
