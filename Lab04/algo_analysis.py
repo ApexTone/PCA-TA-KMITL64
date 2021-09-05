@@ -114,7 +114,7 @@ def m8(n):  # O(n^2)
 
 
 @timer
-def m9(n):  # O(n^4)
+def m9(n):  # O(n^5)
     round1s = 0
     my_sum = 0
     while round1s < n:
@@ -150,7 +150,7 @@ def m11(n):  # O(log n)
 
 
 @timer
-def m12(n):  # O(log10 n)?
+def m12(n):  # O(log n): the runtime is log10 n still
     rounds = 1
     my_sum = 0
     while rounds < n:
