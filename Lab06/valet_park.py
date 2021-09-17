@@ -26,32 +26,48 @@ class Stack:
     def contain(self, value):
         return value in self.stack  # you can use list.count(value) > 0 as well
 
+    def __str__(self):
+        return str(self.stack)
+
+
+class ValetPark:
+    def __init__(self):
+        self.main_lane = Stack()
+        self.temp_lane = Stack()
+
+    def park(self, car):
+        if self.main_lane.contain(car):
+            print(f"Car #{car} already parked here")
+            return
+        self.main_lane.push(car)
+
+    def get_car(self, car):
+        if not self.main_lane.contain(car):
+            print(f"Car #{car} wasn't park here")
+            return
+        while self.main_lane.peek() != car:
+            self.temp_lane.push(self.main_lane.pop())
+        print(f'Car #{self.main_lane.pop()} exiting')
+        while not self.temp_lane.is_empty():
+            self.main_lane.push(self.temp_lane.pop())
+
+    def __str__(self):
+        return str(self.main_lane)
+
 
 def main():
     n = 5
-    parking = Stack()
-    buffer = Stack()
+    parking = ValetPark()
 
     for i in range(n):
         car_id = input(f"Input #{i+1} car's ID: ")
-        if not parking.contain(car_id):
-            parking.push(car_id)
-        else:
-            print(f"Car with ID: {car_id} already parked here")
+        parking.park(car_id)
 
     for i in range(n):
         car_id = input("Exiting car's ID: ")
-        if not parking.contain(car_id):
-            print(f"Car with ID: {car_id} wasn't park here")
-        else:
-            while parking.peek() != car_id:
-                buffer.push(parking.pop())
-            # This is only to show the concept. Normally, stack field would be private so it can't be access here
-            print(f"Buffer: {buffer.stack}")
-            print(f"Exiting: {parking.pop()}")
-            print(f"Parking: {parking.stack}")
-            while not buffer.is_empty():
-                parking.push(buffer.pop())
+        parking.get_car(car_id)
+
+    print(parking)
 
 
 if __name__ == '__main__':
