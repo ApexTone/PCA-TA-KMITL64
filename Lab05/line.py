@@ -31,9 +31,9 @@ class Line:
 
     def join(self, line):
         self.points.extend(line.points)
-        line.points = []
+        line.points.clear()
 
-    def zigzag1(self, line):
+    def zigzag1(self, line):  # alter line1 and line2 into line3 (1 2 1 2 1 2)
         result = []
         while len(self.points) > 0 and len(line.points) > 0:
             if len(self.points) > 0:
@@ -47,19 +47,11 @@ class Line:
             result.append(line.points.pop(0))
         return Line(result)
 
-    def zigzag2(self, line):
-        result = []
-        while len(self.points) > 0 and len(line.points) > 0:
-            if len(line.points) > 0:
-                result.append(line.points.pop(0))
-            if len(self.points) > 0:
-                result.append(self.points.pop(0))
-
-        while len(self.points) > 0:
-            result.append(self.points.pop(0))
+    def zigzag2(self, line):  # shuffle line2 into line1 (1 2 1 2 1 2, no new list)
+        index = 1
         while len(line.points) > 0:
-            result.append(line.points.pop(0))
-        return Line(result)
+            self.points.insert(index, line.points.pop())
+            index += 2
 
     @staticmethod
     def draw_line(line, color="black"):
@@ -95,10 +87,10 @@ def main():
     Line.draw_line(line2, 'red')
     print(line1)
     print(line2)
-    line3 = line1.zigzag2(line2)
+    line1.zigzag2(line2)
+    Line.draw_line(line1, 'orange')
     print(line1)
     print(line2)
-    Line.draw_line(line3, 'orange')
     turtle.done()
 
 

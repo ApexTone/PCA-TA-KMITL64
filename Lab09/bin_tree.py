@@ -5,6 +5,9 @@ class Node:
         self.left = None
         self.right = None
 
+    def __str__(self):
+        return self.username
+
 
 class BST:
     def __init__(self):
@@ -42,27 +45,75 @@ class BST:
         else:
             return self.__find_node(current_node.left, username)
 
-    def remove(self, username):  # remove and replace with inorder successor
-        pass
+    def remove(self, username):  # remove and replace with inorder predecessor
+        def find_max(initial):  # for inorder predecessor
+            curr = initial
+            while curr.right is not None:
+                curr = curr.right
+            return curr
+
+        def swap_node(node_a, node_b):
+            temp_user, temp_pass = node_a.username, node_a.password
+            node_a.username, node_a.password = node_b.username, node_b.password
+            node_b.username, node_b.password = temp_user, temp_pass
+
+        def delete_helper(value, root):
+            if root is None:  # empty tree
+                return
+            elif value < root.username:  # move to left node
+                root.left = delete_helper(value, root.left)
+            elif value > root.username:  # move to right node
+                root.right = delete_helper(value, root.right)
+            else:  # found deletion node
+                if root.left is None and root.right is None:  # leaf
+                    root = None
+                elif root.left is None or root.right is None:  # node has 1 child
+                    root = root.right if root.left is None else root.left
+                else:  # node has 2 children
+                    # find maximum predecessor
+                    predecessor = find_max(root.left)
+                    swap_node(predecessor, root)  # swap value
+                    # delete to the left (old predecessor)
+                    root.left = delete_helper(predecessor.username, root.left)
+            return root
+        self.root = delete_helper(username, self.root)
+        return self.root
 
     def is_empty(self):
         return self.root is None
 
     def preorder(self):
-        pass
+        def _preorder(node):
+            if node is not None:
+                _preorder(node.left)
+                print(node)
+                _preorder(node.right)
+        _preorder(self.root)
 
     def inorder(self):
-        pass
+        def _inorder(node):
+            if node is not None:
+                print(node)
+                _inorder(node.left)
+                _inorder(node.right)
+        _inorder(self.root)
 
     def postorder(self):
-        pass
+        def _postorder(node):
+            if node is not None:
+                _postorder(node.left)
+                _postorder(node.right)
+                print(node)
+        _postorder(self.root)
 
-    def print_subtree(self, tree, level=0):
-        if tree is not None:
-            self.print_subtree(tree.right, level+1)
-            print("   "*level, end="")
-            print(tree.username)
-            self.print_subtree(tree.left, level+1)
+    def print(self):
+        def print_subtree(tree, level=0):
+            if tree is not None:
+                print_subtree(tree.right, level+1)
+                print("   "*level, end="")
+                print(tree.username)
+                print_subtree(tree.left, level+1)
+        print_subtree(self.root)
 
 
 def main():
@@ -74,7 +125,16 @@ def main():
     tree.insert(Node("Test", "Test"))
     tree.insert(Node("X", "P"))
     tree.insert(Node("OMG", "BST"))
-    tree.print_subtree(tree.root)
+    tree.print()
+    print('-'*30)
+
+    # tree.preorder()
+    # tree.inorder()
+    # tree.postorder()
+
+    tree.remove('User')
+    tree.print()
+    print('-' * 30)
 
 
 if __name__ == '__main__':
