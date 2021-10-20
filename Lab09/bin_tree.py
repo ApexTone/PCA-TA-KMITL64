@@ -115,6 +115,26 @@ class BST:
                 print_subtree(tree.left, level+1)
         print_subtree(self.root)
 
+    def tree_size(self):
+        def _size_helper(node, accumulator):
+            if node is not None:
+                return 1 + _size_helper(node.left, accumulator) + _size_helper(node.right, accumulator)
+            return 0
+        return _size_helper(self.root, 0)
+
+    def trim(self, minimum, maximum):
+        lst = []
+
+        def _build_sorted_list(curr_node):
+            if curr_node is not None:
+                _build_sorted_list(curr_node.left)
+                lst.append(curr_node)
+                _build_sorted_list(curr_node.right)
+        _build_sorted_list(self.root)
+        lst = filter(lambda credential: credential.username < minimum or credential.username > maximum, lst)
+        for node in lst:
+            self.remove(node.username)
+
 
 def main():
     tree = BST()
@@ -125,6 +145,7 @@ def main():
     tree.insert(Node("Test", "Test"))
     tree.insert(Node("X", "P"))
     tree.insert(Node("OMG", "BST"))
+    print(tree.tree_size())
     tree.print()
     print('-'*30)
 
@@ -132,8 +153,10 @@ def main():
     # tree.inorder()
     # tree.postorder()
 
-    tree.remove('User')
+    # tree.remove('User')
+    tree.trim('Bean', 'What')
     tree.print()
+
     print('-' * 30)
 
 
